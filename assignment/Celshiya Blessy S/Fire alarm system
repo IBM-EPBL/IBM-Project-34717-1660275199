@@ -1,0 +1,42 @@
+# IBM-Project-34717-1660275199
+Gas Leakage monitoring &amp; Alerting system for Industries
+
+float vout1;
+float temp;
+int LED= 13;
+int gasSensor;
+int piezo=7;
+void setup() 
+{ float vout;
+
+  pinMode(A0,INPUT);
+  pinMode(A1,INPUT);
+  pinMode(LED,INPUT);
+  pinMode(piezo,OUTPUT);
+  Serial.begin(9600);
+ }
+ void loop()
+ {
+  vout=analogRead(A1) ; 
+  vout1=(vout/1023)*5000;
+  temp=(vout1/10);
+  gasSensor=analogRead(A0);
+ if(temp>=150)
+ {
+   digitalWrite(LED,LOW);
+ }
+ if (gasSensor>=80)
+ {
+   digitalWrite(piezo,HIGH);
+ }
+ else
+ {
+   digitalWrite(piezo,LOW);
+ }
+ Serial.print("Temperature in Degree Celsius = ");
+ Serial.print(temp);
+ Serial.println();
+ Serial.print("gasSensor: ");
+Serial.println(gasSensor);
+ delay(1000);
+ }
