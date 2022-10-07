@@ -1,0 +1,55 @@
+# IBM-Project-34717-1660275199
+Gas Leakage monitoring &amp; Alerting system for Industries
+const int trigPin = 0;
+const int echoPin = 5;
+int led = 9;
+int sensor = 3;
+int buzzer =13;
+long duration, cm;
+void setup() {
+  pinMode(led, OUTPUT);
+   pinMode(buzzer, OUTPUT);
+  pinMode(sensor, INPUT);
+   Serial.begin(9600); 
+}
+    long microsecondsToCentimeters(long microseconds) {
+   return microseconds / 29 / 2;
+    }
+
+void loop() {
+  int sensorval = digitalRead(sensor);
+  Serial.println(sensorval);
+  
+  if (sensorval == HIGH) {
+    digitalWrite(led, HIGH);
+  }
+  else {
+    digitalWrite(led, LOW);
+  }
+   long duration, cm;
+   pinMode(trigPin, OUTPUT);
+   digitalWrite(trigPin, LOW);
+   delayMicroseconds(2);
+   digitalWrite(trigPin, HIGH);
+   delayMicroseconds(10);
+   digitalWrite(trigPin, LOW);
+   pinMode(echoPin, INPUT);
+   duration = pulseIn(echoPin, HIGH);
+   
+   cm = microsecondsToCentimeters(duration);
+ 
+   
+   Serial.print(cm);
+   Serial.print("cm");
+   Serial.println();
+   delay(100);
+   if (cm<=50)
+   {
+    digitalWrite(buzzer,HIGH);
+    delay(2000);
+   }
+   else
+   {
+    digitalWrite(buzzer,LOW);
+}
+}
